@@ -87,5 +87,16 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: 'bold',
   },
+  boxbutton: {
+    padding: 10,
+    backgroundColor: colors.gray,
+    margin: 1,
+  },
+  boxbuttontext: {
+    color: colors.white
+  },
+  flexrowbe: {
+    flexDirection: 'row',
+  }
 });
 export default styles;

@@ -14,11 +14,35 @@ import styles from '../styles/HomeScreenStyle';
 import {colors} from '../utils/Variables';
 
 const HomeScreen = () => {
-  // const [isVisible, setIsVisible] = useState(false);
+   const [isVisible, setIsVisible] = useState(false);
   const [openGame, setOpenGame] = useState(false);
   const [valueGame, setValueGame] = useState(null);
   const [data, setData] = useState([]);
-
+  const [sequence, setSequence] = useState([]);
+  const [subSequence, setSubSequence] = useState([]);
+  const [position, setPosition] = useState([]);
+  const [subFilter1_5, setSubFilter1_5] = useState([]);
+  const [sub2Filter, setSub2Filter] = useState([]);
+  const [sub3Filter, setSub3Filter] = useState([]);
+  const [reaction, setreaction] = useState([]);
+  const [stack, setstack] = useState([]);
+  const [Tabledata, setTabledata] = useState([]);
+  const [TableKeys, setTableKeys] = useState([
+    [{name: 'box0_0', value: 'AA'},{name: 'box0_1', value: 'AA'},{name: 'box0_2', value: 'AA'},{name: 'box0_3', value: 'AA'},{name: 'box0_4', value: 'AA'},{name: 'box0_5', value: 'AA'},{name: 'box0_6', value: 'AA'},{name: 'box0_7', value: 'AA'},{name: 'box0_8', value: 'AA'},{name: 'box0_9', value: 'AA'},{name: 'box0_10', value: 'AA'},{name: 'box0_11', value: 'AA'},{name: 'box0_12', value: 'AA'}],
+    [{name: 'box1_0', value: 'AA'},{name: 'box1_1', value: 'AA'},{name: 'box1_2', value: 'AA'},{name: 'box1_3', value: 'AA'},{name: 'box1_4', value: 'AA'},{name: 'box1_5', value: 'AA'},{name: 'box1_6', value: 'AA'},{name: 'box1_7', value: 'AA'},{name: 'box1_8', value: 'AA'},{name: 'box1_9', value: 'AA'},{name: 'box1_10', value: 'AA'},{name: 'box1_11', value: 'AA'},{name: 'box1_12', value: 'AA'}],
+    [{name: 'box2_0', value: 'AA'},{name: 'box2_1', value: 'AA'},{name: 'box2_2', value: 'AA'},{name: 'box2_3', value: 'AA'},{name: 'box2_4', value: 'AA'},{name: 'box2_5', value: 'AA'},{name: 'box2_6', value: 'AA'},{name: 'box2_7', value: 'AA'},{name: 'box2_8', value: 'AA'},{name: 'box2_9', value: 'AA'},{name: 'box2_10', value: 'AA'},{name: 'box2_11', value: 'AA'},{name: 'box2_12', value: 'AA'}],
+    [{name: 'box3_0', value: 'AA'},{name: 'box3_1', value: 'AA'},{name: 'box3_2', value: 'AA'},{name: 'box3_3', value: 'AA'},{name: 'box3_4', value: 'AA'},{name: 'box3_5', value: 'AA'},{name: 'box3_6', value: 'AA'},{name: 'box3_7', value: 'AA'},{name: 'box3_8', value: 'AA'},{name: 'box3_9', value: 'AA'},{name: 'box3_10', value: 'AA'},{name: 'box3_11', value: 'AA'},{name: 'box3_12', value: 'AA'}],
+    [{name: 'box4_0', value: 'AA'},{name: 'box4_1', value: 'AA'},{name: 'box4_2', value: 'AA'},{name: 'box4_3', value: 'AA'},{name: 'box4_4', value: 'AA'},{name: 'box4_5', value: 'AA'},{name: 'box4_6', value: 'AA'},{name: 'box4_7', value: 'AA'},{name: 'box4_8', value: 'AA'},{name: 'box4_9', value: 'AA'},{name: 'box4_10', value: 'AA'},{name: 'box4_11', value: 'AA'},{name: 'box4_12', value: 'AA'}],
+    [{name: 'box5_0', value: 'AA'},{name: 'box5_1', value: 'AA'},{name: 'box5_2', value: 'AA'},{name: 'box5_3', value: 'AA'},{name: 'box5_4', value: 'AA'},{name: 'box5_5', value: 'AA'},{name: 'box5_6', value: 'AA'},{name: 'box5_7', value: 'AA'},{name: 'box5_8', value: 'AA'},{name: 'box5_9', value: 'AA'},{name: 'box5_10', value: 'AA'},{name: 'box5_11', value: 'AA'},{name: 'box5_12', value: 'AA'}],
+    [{name: 'box6_0', value: 'AA'},{name: 'box6_1', value: 'AA'},{name: 'box6_2', value: 'AA'},{name: 'box6_3', value: 'AA'},{name: 'box6_4', value: 'AA'},{name: 'box6_5', value: 'AA'},{name: 'box6_6', value: 'AA'},{name: 'box6_7', value: 'AA'},{name: 'box6_8', value: 'AA'},{name: 'box6_9', value: 'AA'},{name: 'box6_10', value: 'AA'},{name: 'box6_11', value: 'AA'},{name: 'box6_12', value: 'AA'}],
+    [{name: 'box7_0', value: 'AA'},{name: 'box7_1', value: 'AA'},{name: 'box7_2', value: 'AA'},{name: 'box7_3', value: 'AA'},{name: 'box7_4', value: 'AA'},{name: 'box7_5', value: 'AA'},{name: 'box7_6', value: 'AA'},{name: 'box7_7', value: 'AA'},{name: 'box7_8', value: 'AA'},{name: 'box7_9', value: 'AA'},{name: 'box7_10', value: 'AA'},{name: 'box7_11', value: 'AA'},{name: 'box7_12', value: 'AA'}],
+    [{name: 'box8_0', value: 'AA'},{name: 'box8_1', value: 'AA'},{name: 'box8_2', value: 'AA'},{name: 'box8_3', value: 'AA'},{name: 'box8_4', value: 'AA'},{name: 'box8_5', value: 'AA'},{name: 'box8_6', value: 'AA'},{name: 'box8_7', value: 'AA'},{name: 'box8_8', value: 'AA'},{name: 'box8_9', value: 'AA'},{name: 'box8_10', value: 'AA'},{name: 'box8_11', value: 'AA'},{name: 'box8_12', value: 'AA'}],
+    [{name: 'box9_0', value: 'AA'},{name: 'box9_1', value: 'AA'},{name: 'box9_2', value: 'AA'},{name: 'box9_3', value: 'AA'},{name: 'box9_4', value: 'AA'},{name: 'box9_5', value: 'AA'},{name: 'box9_6', value: 'AA'},{name: 'box9_7', value: 'AA'},{name: 'box9_8', value: 'AA'},{name: 'box9_9', value: 'AA'},{name: 'box9_10', value: 'AA'},{name: 'box9_11', value: 'AA'},{name: 'box9_12', value: 'AA'}],
+    [{name: 'box10_0', value: 'AA'},{name: 'box10_1', value: 'AA'},{name: 'box10_2', value: 'AA'},{name: 'box10_3', value: 'AA'},{name: 'box10_4', value: 'AA'},{name: 'box10_5', value: 'AA'},{name: 'box10_6', value: 'AA'},{name: 'box10_7', value: 'AA'},{name: 'box10_8', value: 'AA'},{name: 'box10_9', value: 'AA'},{name: 'box10_10', value: 'AA'},{name: 'box10_11', value: 'AA'},{name: 'box10_12', value: 'AA'}],
+    [{name: 'box11_0', value: 'AA'},{name: 'box11_1', value: 'AA'},{name: 'box11_2', value: 'AA'},{name: 'box11_3', value: 'AA'},{name: 'box11_4', value: 'AA'},{name: 'box11_5', value: 'AA'},{name: 'box11_6', value: 'AA'},{name: 'box11_7', value: 'AA'},{name: 'box11_8', value: 'AA'},{name: 'box11_9', value: 'AA'},{name: 'box11_10', value: 'AA'},{name: 'box11_11', value: 'AA'},{name: 'box11_12', value: 'AA'}],
+    [{name: 'box12_0', value: 'AA'},{name: 'box12_1', value: 'AA'},{name: 'box12_2', value: 'AA'},{name: 'box12_3', value: 'AA'},{name: 'box12_4', value: 'AA'},{name: 'box12_5', value: 'AA'},{name: 'box12_6', value: 'AA'},{name: 'box12_7', value: 'AA'},{name: 'box12_8', value: 'AA'},{name: 'box12_9', value: 'AA'},{name: 'box12_10', value: 'AA'},{name: 'box12_11', value: 'AA'},{name: 'box12_12', value: 'AA'}],
+  ]);
+  const [TableK, setTableK] = useState([]);
   const [itemsGame, setItemsGame] = useState([
     {value: 'CASH GAMES', id: 'CASH GAMES'},
   ]);
@@ -71,21 +95,149 @@ const HomeScreen = () => {
     {leftPosition: 'SQUEEZE / CALL'},
     {leftPosition: 'COLD4BET / FARHA'},
   ];
-  const renderItem = ({item, key}) => (
+
+  const render_values = ({item}) => (
     <View>
       <TouchableOpacity style={styles.urPositionItemView}>
-        <Text style={styles.urPositionItem}>{item}</Text>
+        <Text style={styles.urPositionItem}>{item.fontColor}</Text>
       </TouchableOpacity>
     </View>
   );
-  const leftRenderItem = ({item}) => (
+  const renderItem_subFilter1_5 = ({item, key}) => {
+    return (
+      <View>
+        <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
+            var key = Object.keys(data.position);
+            var inde = key.indexOf(`${item.id}`);
+            var casino = Object.values(data.position);
+            if (casino[inde]) {
+              setPosition(casino[inde]);
+            }
+        }}>
+          <Text style={styles.urPositionItem}>{item.value}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  const renderItem = ({item, key}) => (
     <View>
-      <TouchableOpacity style={styles.leftTextView}>
-        <Text style={styles.leftText}>{item}</Text>
+      <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
+        var keys = Object.keys(data.sub2Filter);
+        var index = keys.indexOf(`${item.id}`);
+        if(index < 0){
+          setSubFilter1_5([]);
+          var key = Object.keys(data.position);
+          var inde = key.indexOf(`${item.id}`);
+          var casino = Object.values(data.position);
+          if (casino[inde]) {
+            setPosition(casino[inde]);
+          }
+        }else{
+          var casino = Object.values(data.sub2Filter);
+          if (casino[index]) {
+            setsub2Filter(casino[index]);
+          }
+        }
+      }}>
+        <Text style={styles.urPositionItem}>{item.value}</Text>
       </TouchableOpacity>
     </View>
   );
 
+  const renderItemposition = ({item}) => {
+    return (
+    <View>
+      <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
+        var keys = Object.keys(data.subFilter1_5);
+        var index = keys.indexOf(`${item.id}`);
+        if(index < 0){
+          var key = Object.keys(data.reaction);
+          var inde = key.indexOf(`${item.id}`);
+          if(inde>=0){
+            var casino = Object.values(data.reaction);
+            if (casino[inde]) {
+              setreaction(casino[inde]);
+            }
+          }else{
+            var key1 = Object.keys(data.stack);
+            var ind = key1.indexOf(`${item.id}`);
+            var casino = Object.values(data.stack);
+            if (casino[ind]) {
+              setstack(casino[ind]);
+            }
+          }
+        }else{
+          var casino = Object.values(data.subFilter1_5);
+          if (casino[index]) {
+            setSub2Filter(casino[index]);
+          }
+        }
+      }}>
+        <Text style={styles.urPositionItem}>{item.value}</Text>
+      </TouchableOpacity>
+    </View>
+    )
+  }
+  const renderItem_sub2filter = ({item, key}) => (
+    <View>
+      <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
+        var keys = Object.keys(data.sub3Filter);
+        var index = keys.indexOf(`${item.id}`);
+        if(index < 0){
+          var key = Object.keys(data.reaction);
+          var inde = key.indexOf(`${item.id}`);
+          var casino = Object.values(data.reaction);
+          if (casino[inde]) {
+            setreaction(casino[inde]);
+          }
+        }else{
+          var casino = Object.values(data.sub3Filter);
+          if (casino[index]) {
+            setSub3Filter(casino[index]);
+          }
+        }
+      }}>
+        <Text style={styles.urPositionItem}>{item.value}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+  const renderItem_sub3filter = ({item, key}) => (
+    <View>
+      <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
+          var key = Object.keys(data.reaction);
+          var inde = key.indexOf(`${item.id}`);
+          var casino = Object.values(data.reaction);
+          if (casino[inde]) {
+            setreaction(casino[inde]);
+          }
+      }}>
+        <Text style={styles.urPositionItem}>{item.value}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+  const renderItem_reaction = ({item, key}) => (
+    <View>
+      <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
+          var key = Object.keys(data.stack);
+          var inde = key.indexOf(`${item.id}`);
+          var casino = Object.values(data.stack);
+          if (casino[inde]) {
+            setstack(casino[inde]);
+          }
+      }}>
+        <Text style={styles.urPositionItem}>{item.value}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderItem_stack = ({item}) => (
+    <View>
+      <TouchableOpacity style={styles.leftTextView}>
+        <Text style={styles.leftText}>{item.value}</Text>
+      </TouchableOpacity>
+    </View>
+  );
   const getData = async () => {
     try {
       const response = await fetch(
@@ -104,8 +256,29 @@ const HomeScreen = () => {
     }
   };
 
+  const getValues = async () => {
+    try {
+      const response = await fetch(
+        'https://curveinfotech.com/game/table.json',
+      );
+      const json = await response.json();
+      if (json.box0_0) {
+        var casino = Object.values(json);
+        var keys = Object.keys(json);
+        setTableK(keys);
+        //console.log(keys);
+        setTabledata(casino);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      //  setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getData();
+    getValues();
   }, []);
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -120,7 +293,6 @@ const HomeScreen = () => {
           title="Button"
         />
       </View> */}
-
       <View style={styles.allPickerMainContainer}>
         <View style={styles.dropdownWidth}>
           <Text style={styles.headingTxt}>GAME</Text>
@@ -230,89 +402,171 @@ const HomeScreen = () => {
             setValue={setValuePlayer}
             setItems={setItemsPlayer}
             setOpen={setOpenPlayer}
+            onChangeValue={value => {
+              var keys = Object.keys(data.sequence);
+              var index = keys.indexOf(`${value}`);
+              var casino = Object.values(data.sequence);
+              if (casino[index]) {
+                setSequence(casino[index]);
+              }
+            }}
           />
         </View>
       </View>
       <ScrollView style={{}}>
         <View style={styles.selectListView}>
           <View>
-            <FlatList
-              data={data.sequenceOptions}
-              scrollEnabled={false}
-              renderItem={leftRenderItem}
-              keyExtractor={item => item.id}
-            />
-            {/* <TouchableOpacity style={styles.leftTextView}>
-              <Text style={styles.leftText}>OPEN RAISE</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.leftTextView}>
-              <Text style={styles.leftText}>RAISE OVER LIMPERS</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.leftTextView}>
-              <Text style={styles.leftText}>3BET / CALL</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.leftTextView}>
-              <Text style={styles.leftText}>CALL VS OPEN-PUSH</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.leftTextView}>
-              <Text style={styles.leftText}>SQUEEZE / CALL</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.leftTextView}>
-              <Text style={styles.leftText}>COLD4BET / FARHA</Text>
-            </TouchableOpacity> */}
+              {sequence.map((item, index)=>{
+                return (
+                <View>
+                  <TouchableOpacity style={styles.leftTextView} onPress={()=>{
+                    var keys = Object.keys(data.subSequence);
+                    var index = keys.indexOf(`${item.id}`);
+                    if(index < 0){
+                      setSubSequence([]);
+                      var key = Object.keys(data.position);
+                      var inde = key.indexOf(`${item.id}`);
+                      var casino = Object.values(data.position);
+                      if (casino[inde]) {
+                        setPosition(casino[inde]);
+                      }
+                    }else{
+                      setPosition([]);
+                      var casino = Object.values(data.subSequence);
+                      if (casino[index]) {
+                        setSubSequence(casino[index]);
+                      }
+                    }
+                  }}>
+                    <Text style={styles.leftText}>{item.value}</Text>
+                  </TouchableOpacity>
+                </View> 
+                )               
+              })}
           </View>
           <View style={styles.rightSelectView}>
-            <Text style={styles.positionHeadingText}>YOUR POSITION</Text>
-            <View>
-              <FlatList
-                data={data.positionOptions}
-                scrollEnabled
-                horizontal={true}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-              />
-            </View>
-            <View style={{marginVertical: '3%'}}>
-              <Text style={styles.positionHeadingText}>
-                OPPONENT OPEN-PUSH POSITION
-              </Text>
-              <FlatList
-                data={data.subSequenceOptions}
-                scrollEnabled
-                horizontal={true}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-              />
-            </View>
-            <Text style={styles.positionHeadingText}>EXTRA ACTIONS</Text>
-            <TouchableOpacity style={styles.anotherPlayerBtn}>
-              <Text style={styles.anotherPlayer}>ANOTHER PLAYERS CALLS</Text>
-            </TouchableOpacity>
-            <View style={styles.bottomBtn}>
-              <TouchableOpacity style={styles.sbBtn}>
-                <Text style={styles.bottomBtnTxt}>SB</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btn}>
-                <Text style={styles.bottomBtnTxt}>BTN</Text>
-              </TouchableOpacity>
-            </View>
+            {subSequence.length>0 &&
+              <View>
+                <Text style={styles.positionHeadingText}>YOUR SUBSEQUENCE</Text>
+                <FlatList
+                  data={subSequence}
+                  scrollEnabled
+                  horizontal={true}
+                  renderItem={renderItem}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            }
+            {subFilter1_5.length>0 &&
+              <View>
+                <Text style={styles.positionHeadingText}>YOUR SUB FILTER 1_5</Text>
+                <FlatList
+                  data={subFilter1_5}
+                  scrollEnabled
+                  horizontal={true}
+                  renderItem={renderItem_subFilter1_5}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            }
+
+            {position.length>0 &&
+              <View>
+                <Text style={styles.positionHeadingText}>YOUR POSITION</Text>
+                <FlatList
+                  data={position}
+                  scrollEnabled
+                  horizontal={true}
+                  renderItem={renderItemposition}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            }
+
+            {sub2Filter.length>0 &&
+              <View>
+                <Text style={styles.positionHeadingText}>YOUR SUB 2 FILTER</Text>
+                <FlatList
+                  data={sub2Filter}
+                  scrollEnabled
+                  horizontal={true}
+                  renderItem={renderItem_sub2Filter}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            }
+
+            {sub3Filter.length>0 &&
+              <View>
+                <Text style={styles.positionHeadingText}>YOUR SUB 2 FILTER</Text>
+                <FlatList
+                  data={sub3Filter}
+                  scrollEnabled
+                  horizontal={true}
+                  renderItem={renderItem_sub3Filter}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            }
+            {reaction.length>0 &&
+              <View>
+                <Text style={styles.positionHeadingText}>YOUR SUB 2 FILTER</Text>
+                <FlatList
+                  data={reaction}
+                  scrollEnabled
+                  horizontal={true}
+                  renderItem={renderItem_reaction}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            }
+            {stack.length>0 &&
+              <View>
+                <Text style={styles.positionHeadingText}>YOUR SUB 2 FILTER</Text>
+                <FlatList
+                  data={stack}
+                  scrollEnabled
+                  horizontal={true}
+                  renderItem={renderItem_stack}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            }
+
+            {TableKeys.map(item=>{
+              return(
+                <View style={styles.flexrowbe}>
+                  {item.map(i=>{
+                    var indexs = TableK.indexOf(i.name);
+                    if(indexs >= 0){
+                      return (
+                        <View style={[styles.boxbutton, {backgroundColor: Tabledata[indexs].colors[0].name}]}>
+                          <Text style={[styles.boxbuttontext, {color: Tabledata[indexs].fontColor}]}>{i.value}</Text>
+                        </View>
+                      )
+                    }
+                  })}
+                </View>
+              )
+            })}
+
           </View>
         </View>
       </ScrollView>
-      {/* <BottomSheet
-        isVisible={isVisible}
-        containerStyle={{backgroundColor: 'rgba(0.5, 0.22, 0, 0.2)'}}>
-        {list.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet> */}
+      {/* {Tabledata.length > 0 &&
+            <View>
+              <Text style={styles.positionHeadingText}>Table Data </Text>
+              <FlatList
+                    data={Tabledata}
+                    numColumns={13}
+                    scrollEnabled
+                    horizontal={false}
+                    renderItem={render_values}
+                    keyExtractor={item => item.id}
+                  />
+            </View>
+          } */}
+
     </SafeAreaView>
   );
 };
