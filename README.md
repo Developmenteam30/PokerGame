@@ -13,6 +13,8 @@ https://reactnative.dev/docs/environment-setup
 
 user react native cli quickstart
 
+run: yarn install instead of npm install
+
 to run android
 
 run command: react-native run-android
