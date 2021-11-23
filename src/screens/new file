@@ -103,12 +103,9 @@ const HomeScreen = () => {
     return (
       <View>
         <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
-            var key = Object.keys(data.position);
-            var inde = key.indexOf(`${item.id}`);
-            var casino = Object.values(data.position);
-            if (casino[inde]) {
-              setPosition(casino[inde]);
-            }
+          if(data.position[item.id]){
+            setPosition(data.position[item.id]);
+          }
         }}>
           <Text style={styles.urPositionItem}>{item.value}</Text>
         </TouchableOpacity>
@@ -119,21 +116,11 @@ const HomeScreen = () => {
   const renderItem = ({item, key}) => (
     <View>
       <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
-        var keys = Object.keys(data.sub2Filter);
-        var index = keys.indexOf(`${item.id}`);
-        if(index < 0){
+        if(data.sub2Filter[item.id]){
+          setsub2Filter(data.sub2Filter[item.id]);
+        }else if(data.position[item.id]){
           setSubFilter1_5([]);
-          var key = Object.keys(data.position);
-          var inde = key.indexOf(`${item.id}`);
-          var casino = Object.values(data.position);
-          if (casino[inde]) {
-            setPosition(casino[inde]);
-          }
-        }else{
-          var casino = Object.values(data.sub2Filter);
-          if (casino[index]) {
-            setsub2Filter(casino[index]);
-          }
+          setPosition(data.position[item.id]);
         }
       }}>
         <Text style={styles.urPositionItem}>{item.value}</Text>
@@ -145,28 +132,13 @@ const HomeScreen = () => {
     return (
     <View>
       <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
-        var keys = Object.keys(data.subFilter1_5);
-        var index = keys.indexOf(`${item.id}`);
-        if(index < 0){
-          var key = Object.keys(data.reaction);
-          var inde = key.indexOf(`${item.id}`);
-          if(inde>=0){
-            var casino = Object.values(data.reaction);
-            if (casino[inde]) {
-              setreaction(casino[inde]);
-            }
-          }else{
-            var key1 = Object.keys(data.stack);
-            var ind = key1.indexOf(`${item.id}`);
-            var casino = Object.values(data.stack);
-            if (casino[ind]) {
-              setstack(casino[ind]);
-            }
-          }
+        if(data.subFilter1_5[item.id]){
+          setSub2Filter(data.subFilter1_5[item.id]);
         }else{
-          var casino = Object.values(data.subFilter1_5);
-          if (casino[index]) {
-            setSub2Filter(casino[index]);
+          if(data.reaction[item.id]){
+            setreaction(data.reaction[item.id]);
+          }else if(data.stack[item.id]){
+            setstack(data.stack[item.id]);
           }
         }
       }}>
@@ -178,20 +150,10 @@ const HomeScreen = () => {
   const renderItem_sub2filter = ({item, key}) => (
     <View>
       <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
-        var keys = Object.keys(data.sub3Filter);
-        var index = keys.indexOf(`${item.id}`);
-        if(index < 0){
-          var key = Object.keys(data.reaction);
-          var inde = key.indexOf(`${item.id}`);
-          var casino = Object.values(data.reaction);
-          if (casino[inde]) {
-            setreaction(casino[inde]);
-          }
-        }else{
-          var casino = Object.values(data.sub3Filter);
-          if (casino[index]) {
-            setSub3Filter(casino[index]);
-          }
+        if(data.sub3Filter[item.id]){
+          setSub3Filter(data.sub3Filter[item.id]);
+        }else if(data.reaction[item.id]){
+          setreaction(data.reaction[item.id]);
         }
       }}>
         <Text style={styles.urPositionItem}>{item.value}</Text>
@@ -201,12 +163,9 @@ const HomeScreen = () => {
   const renderItem_sub3filter = ({item, key}) => (
     <View>
       <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
-          var key = Object.keys(data.reaction);
-          var inde = key.indexOf(`${item.id}`);
-          var casino = Object.values(data.reaction);
-          if (casino[inde]) {
-            setreaction(casino[inde]);
-          }
+        if(data.reaction[item.id]){
+          setreaction(data.reaction[item.id]);
+        }
       }}>
         <Text style={styles.urPositionItem}>{item.value}</Text>
       </TouchableOpacity>
@@ -215,12 +174,9 @@ const HomeScreen = () => {
   const renderItem_reaction = ({item, key}) => (
     <View>
       <TouchableOpacity style={styles.urPositionItemView} onPress={()=>{
-          var key = Object.keys(data.stack);
-          var inde = key.indexOf(`${item.id}`);
-          var casino = Object.values(data.stack);
-          if (casino[inde]) {
-            setstack(casino[inde]);
-          }
+        if(data.stack[item.id]){
+          setstack(data.stack[item.id]);
+        }
       }}>
         <Text style={styles.urPositionItem}>{item.value}</Text>
       </TouchableOpacity>
@@ -312,12 +268,7 @@ const HomeScreen = () => {
             setItems={setItemsGame}
             setOpen={setOpenGame}
             onChangeValue={value => {
-              var keys = Object.keys(data.casino);
-              var index = keys.indexOf(`${value}`);
-              var casino = Object.values(data.casino);
-              if (casino[index]) {
-                setItemsCasino(casino[index]);
-              }
+                setItemsCasino(data.casino[value]);
             }}
           />
         </View>
@@ -339,12 +290,7 @@ const HomeScreen = () => {
             setItems={setItemsCasino}
             setOpen={setOpenCasino}
             onChangeValue={value => {
-              var keys = Object.keys(data.stake);
-              var index = keys.indexOf(`${value}`);
-              var casino = Object.values(data.stake);
-              if (casino[index]) {
-                setItemsStake(casino[index]);
-              }
+              setItemsStake(data.stake[value]);
             }}
           />
         </View>
@@ -369,12 +315,7 @@ const HomeScreen = () => {
             setItems={setItemsStake}
             setOpen={setOpenStake}
             onChangeValue={value => {
-              var keys = Object.keys(data.players);
-              var index = keys.indexOf(`${value}`);
-              var casino = Object.values(data.players);
-              if (casino[index]) {
-                setItemsPlayer(casino[index]);
-              }
+              setItemsPlayer(data.players[value]);
             }}
           />
         </View>
@@ -399,12 +340,7 @@ const HomeScreen = () => {
             setItems={setItemsPlayer}
             setOpen={setOpenPlayer}
             onChangeValue={value => {
-              var keys = Object.keys(data.sequence);
-              var index = keys.indexOf(`${value}`);
-              var casino = Object.values(data.sequence);
-              if (casino[index]) {
-                setSequence(casino[index]);
-              }
+              setSequence(data.sequence[value]);
             }}
           />
         </View>
@@ -412,26 +348,18 @@ const HomeScreen = () => {
       <ScrollView style={{}}>
         <View style={styles.selectListView}>
           <View>
-              {sequence.map((item, index)=>{
+              {sequence && sequence.map((item, index)=>{
                 return (
                 <View>
                   <TouchableOpacity style={styles.leftTextView} onPress={()=>{
                     var keys = Object.keys(data.subSequence);
                     var index = keys.indexOf(`${item.id}`);
-                    if(index < 0){
-                      setSubSequence([]);
-                      var key = Object.keys(data.position);
-                      var inde = key.indexOf(`${item.id}`);
-                      var casino = Object.values(data.position);
-                      if (casino[inde]) {
-                        setPosition(casino[inde]);
-                      }
-                    }else{
+                    if(data.subSequence[item.id] && data.subSequence[item.id].length > 0){
                       setPosition([]);
-                      var casino = Object.values(data.subSequence);
-                      if (casino[index]) {
-                        setSubSequence(casino[index]);
-                      }
+                      setSubSequence(data.subSequence[item.id]);
+                    }else if(data.position[item.id]){
+                      setSubSequence([]);
+                      setPosition(data.position[item.id]);
                     }
                   }}>
                     <Text style={styles.leftText}>{item.value}</Text>
