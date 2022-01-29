@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {colors, fontSizes} from '../utils/Variables';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     right: 0,
     width: width,
     height: height,
- },
+  },
   gamefilters: {
     paddingLeft: 10,
   },
@@ -40,7 +40,13 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: colors.black,
   },
-  middlepanel:{
+  leftpanels: {
+    width: '30%',
+    opacity: 1,
+    height: '100%',
+    backgroundColor: colors.black,
+  },
+  middlepanel: {
     width: '40%',
     flexDirection: 'row',
   },
@@ -51,21 +57,23 @@ const styles = StyleSheet.create({
   rightsidepanel: {
     width: 200,
   },
-  logobottom: { 
-    width: 200, height: 30, resizeMode:'contain', 
-    marginTop: 50
+  logobottom: {
+    width: 200,
+    height: 30,
+    resizeMode: 'contain',
+    marginTop: 50,
   },
   overloadpanel: {
-    width: width,
+    width: '80%',
     position: 'absolute',
-    backgroundColor:  'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     zIndex: 2,
     left: '20%',
   },
   overloadpanel_info: {
     width: width,
     position: 'absolute',
-    backgroundColor:  'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     zIndex: 3,
     left: '0%',
   },
@@ -73,7 +81,7 @@ const styles = StyleSheet.create({
   headertext: {
     fontSize: fontSizes.medium,
     fontWeight: 'bold',
-    color: colors.white
+    color: colors.white,
   },
   listitem: {
     backgroundColor: 'black',
@@ -89,7 +97,7 @@ const styles = StyleSheet.create({
   },
   selecteditme: {
     color: colors.primary,
-    fontSize: fontSizes.smallest
+    fontSize: fontSizes.smallest,
   },
   allPickerMainContainer: {
     flexDirection: 'column',
@@ -175,15 +183,17 @@ const styles = StyleSheet.create({
   },
   boxbutton: {
     padding: 10,
+    width: 50,
     backgroundColor: colors.gray,
     margin: 1,
   },
   boxbuttontext: {
-    color: colors.white
+    color: colors.white,
+    textAlign: 'center',
   },
   flexrowbe: {
     flexDirection: 'row',
     width: '100%',
-  }
+  },
 });
 export default styles;
