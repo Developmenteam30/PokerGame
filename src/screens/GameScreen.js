@@ -287,7 +287,6 @@ const GameScreen = () => {
   ];
   useEffect(() => {
     getData();
-    getValues();
     connectsocket();
   }, []);
 
@@ -345,23 +344,6 @@ const GameScreen = () => {
       const jso = jsonss.result ? jsonss.result.data : jsonss;
       if (jso.game) {
         setfonts(jso);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      //  setLoading(false);
-    }
-  };
-
-  const getValues = async () => {
-    try {
-      const response = await fetch('https://curveinfotech.com/game/table.json');
-      const json = await response.json();
-      if (json.box0_0) {
-        // var casino = Object.values(json);
-        // var keys = Object.keys(json);
-        // setTableK(keys);
-        // setTabledata(casino);
       }
     } catch (error) {
       console.error(error);
