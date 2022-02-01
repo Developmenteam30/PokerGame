@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   },
   textlightcolor: {
     color: colors.lightwhite,
+    padding: 15,
   },
   rightpanel: {
     width: '30%',
@@ -49,6 +50,20 @@ const styles = StyleSheet.create({
   middlepanel: {
     width: '40%',
     flexDirection: 'row',
+  },
+  tableheader: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  tablehedertext: {
+    color: colors.white,
+    fontSize: 14,
+  },
+  boxstyle: {
+    backgroundColor: '#05B2D5',
+    width: 17,
+    height: 17,
+    marginRight: 10,
   },
   tableview: {
     width: '100%',

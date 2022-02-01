@@ -31,6 +31,9 @@ const GameScreen = () => {
   const [valueCasino, setValueCasino] = useState(null);
   const [valueStake, setValueStake] = useState(null);
   const [valuePlayer, setValuePlayer] = useState(null);
+  const [StackList, setStackList] = useState([]);
+  const [openStack, setOpenStack] = useState(false);
+  const [StackValue, setStackValue] = useState(null);
 
   const [gameFiltersdata, setgamefiltersdata] = useState([
     {id: 0, name: 'Game', value: null, display: true},
@@ -47,7 +50,12 @@ const GameScreen = () => {
     {id: 4, name: 'Sub 2 Filter', value: null, display: false},
     {id: 5, name: 'Sub 3 Filter', value: null, display: false},
     {id: 6, name: 'Reaction', value: null, display: false},
-    {id: 7, name: 'Stack', value: null, display: false},
+    // {id: 7, name: 'Stack', value: null, display: false},
+  ]);
+
+  const [rightFiltersdata, setrightfiltersdata] = useState([
+    {id: 0, name: 'Stack', value: null, display: false},
+    {id: 1, name: 'Opponent Rol. Size', value: null, display: false},
   ]);
 
   const [sequence, setSequence] = useState(null);
@@ -284,7 +292,6 @@ const GameScreen = () => {
   }, []);
 
   const connectsocket = async () => {
-    connect = new WebSocket('wss://reckoner-example.herokuapp.com');
     var filters = '';
     if (gameFiltersdata[1].value) {
       filters += gameFiltersdata[1].value;
@@ -302,25 +309,24 @@ const GameScreen = () => {
     if (otherFiltersdata[0].value) {
       filters += otherFiltersdata[0].value;
     }
-    if (otherFiltersdata[7].value) {
-      filters += otherFiltersdata[7].value;
+    if (StackValue) {
+      filters += StackValue;
     }
     if (gameFiltersdata[2].value) {
       filters += gameFiltersdata[2].value;
     }
-    connect.onopen = () => {
-      connect.send(JSON.stringify({filters: filters}));
-    };
-    connect.onmessage = ({data}) => {
-      data = JSON.parse(data);
-      if (data.box0_0) {
-        var casino = Object.values(data);
-        var keys = Object.keys(data);
-        setTableK(keys);
-        setTabledata(casino);
-      }
-    };
+    connect.send(JSON.stringify({filters: filters}));
   };
+  connect.onmessage = ({data}) => {
+    data = JSON.parse(data);
+    if (data.box0_0) {
+      var casino = Object.values(data);
+      var keys = Object.keys(data);
+      setTableK(keys);
+      setTabledata(casino);
+    }
+  };
+
   const getData = async () => {
     try {
       const response = await fetch(
@@ -382,7 +388,8 @@ const GameScreen = () => {
         break;
 
       case 'Sequence':
-        setitemsData(data.sequence[valuePlayer.id]);
+        var v = data.sequence[valuePlayer.id];
+        setitemsData(v);
         break;
       case 'Subsequence':
         setitemsData(data.subSequence[sequence.id]);
@@ -406,13 +413,17 @@ const GameScreen = () => {
         setitemsData(data.sub3Filter[sub2Filter.id]);
         break;
       case 'Reaction':
-        setitemsData(data.reaction[sub3Filter.id]);
+        if (sub3Filter) {
+          setitemsData(data.reaction[sub3Filter.id]);
+        } else {
+          setitemsData(data.reaction[sub2Filter.id]);
+        }
         break;
       case 'Stack':
         if (otherFiltersdata[6].display) {
-          setitemsData(data.stack[reaction.id]);
+          setStackList(data.stack[reaction.id]);
         } else {
-          setitemsData(data.stack[position.id]);
+          setStackList(data.stack[position.id]);
         }
         break;
 
@@ -424,6 +435,7 @@ const GameScreen = () => {
   };
   const setValues = async value => {
     setselectpanel(false);
+    console.log(key);
     switch (key) {
       case 'Game':
         gameFiltersdata[0].value = value.value;
@@ -446,6 +458,7 @@ const GameScreen = () => {
         setgamefiltersdata(gameFiltersdata);
         setotherfiltersdata(otherFiltersdata);
         setValuePlayer(value);
+        setgamefilters(false);
         break;
       case 'Sequence':
         otherFiltersdata[0].value = value.value;
@@ -482,13 +495,14 @@ const GameScreen = () => {
         if (data.sub2Filter[value.id]) {
           otherFiltersdata[4].display = true;
           otherFiltersdata[6].display = false;
-          otherFiltersdata[7].display = false;
+          // otherFiltersdata[7].display = false;
         } else if (data.reaction[value.id]) {
           otherFiltersdata[6].display = true;
           otherFiltersdata[4].display = false;
-          otherFiltersdata[7].display = false;
+          // otherFiltersdata[7].display = false;
         } else {
-          otherFiltersdata[7].display = true;
+          // otherFiltersdata[7].display = true;
+          setStackList(data.stack[value.id]);
           otherFiltersdata[6].display = false;
           otherFiltersdata[4].display = false;
         }
@@ -515,12 +529,13 @@ const GameScreen = () => {
         break;
       case 'Reaction':
         otherFiltersdata[6].value = value.value;
-        otherFiltersdata[7].display = true;
+        // otherFiltersdata[7].display = true;
         setotherfiltersdata(otherFiltersdata);
         setreaction(value);
+        setStackList(data.stack[value.id]);
         break;
       case 'Stack':
-        otherFiltersdata[7].value = value.value;
+        // otherFiltersdata[7].value = value.value;
         setotherfiltersdata(otherFiltersdata);
         setstack(value);
         break;
@@ -654,6 +669,16 @@ const GameScreen = () => {
       <ScrollView style={{flexDirection: 'row'}} horizontal>
         {/* Table starts */}
         <View>
+          <View style={styles.tableheader}>
+            <View style={styles.boxstyle}></View>
+            <Text style={styles.tablehedertext}>Open Raise</Text>
+            <View
+              style={[
+                styles.boxstyle,
+                {backgroundColor: '#C3F7ED', marginLeft: 30},
+              ]}></View>
+            <Text style={styles.tablehedertext}>Limp</Text>
+          </View>
           <ScrollView style={styles.tableview} scrollEnabled={true}>
             {TableKeys.map(item => {
               return (
@@ -694,92 +719,90 @@ const GameScreen = () => {
         </View>
         {/* Table Ends */}
         <View styles={styles.rightsidepanel}>
-          <ListItem bottomDivider style={styles.listitem}>
-            <ListItem.Content>
-              <ListItem.Title style={{paddingBottom: 10}}>
-                <Text style={styles.textlightcolor}>Stack</Text>
-                <ListItem.Chevron name="help-circle-outline" />
-              </ListItem.Title>
-              <ListItem.Subtitle>
-                <DropDownPicker
-                  style={{
-                    height: 40,
-                    backgroundColor: colors.black,
-                    borderColor: colors.lightwhite,
-                  }}
-                  schema={{
-                    label: 'value',
-                    value: 'id',
-                  }}
-                  textStyle={{
-                    color: colors.lightwhite,
-                  }}
-                  disabledStyle={{
-                    backgroundColor: colors.black,
-                  }}
-                  open={openGame}
-                  value={valueGame}
-                  items={itemsGame}
-                  setValue={setValueGame}
-                  setItems={setItemsGame}
-                  setOpen={setOpenGame}
-                  onChangeValue={value => {
-                    var keys = Object.keys(data.casino);
-                    var index = keys.indexOf(`${value}`);
-                    var casino = Object.values(data.casino);
-                    if (casino[index]) {
-                      setItemsCasino(casino[index]);
-                    }
-                  }}
-                />
-              </ListItem.Subtitle>
-            </ListItem.Content>
-          </ListItem>
+          <Text style={styles.textlightcolor}>{rightFiltersdata[0].name}</Text>
 
-          <ListItem bottomDivider style={styles.listitem}>
-            <ListItem.Content>
-              <ListItem.Title style={{paddingBottom: 10}}>
-                <Text style={styles.textlightcolor}>Opponent Rol. Size</Text>
+          <DropDownPicker
+            style={{
+              height: 40,
+              width: 140,
+              marginLeft: 15,
+              backgroundColor: colors.black,
+              borderColor: colors.lightwhite,
+            }}
+            schema={{
+              label: 'value',
+              value: 'value',
+            }}
+            textStyle={{
+              color: colors.lightwhite,
+            }}
+            disabledStyle={{
+              backgroundColor: colors.black,
+            }}
+            open={openStack}
+            value={StackValue}
+            items={StackList}
+            setValue={setStackValue}
+            setItems={setStackList}
+            setOpen={setOpenStack}
+            onChangeValue={value => {
+              connectsocket();
+              // var keys = Object.keys(data.casino);
+              // var index = keys.indexOf(`${value}`);
+              // var casino = Object.values(data.casino);
+              // if (casino[index]) {
+              //   setItemsCasino(casino[index]);
+              // }
+            }}
+          />
+          {!openStack && (
+            <View>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.textlightcolor}>
+                  {rightFiltersdata[1].name}
+                </Text>
                 <ListItem.Chevron name="help-circle-outline" />
-              </ListItem.Title>
-              <ListItem.Subtitle>
-                <DropDownPicker
-                  style={{
-                    height: 40,
-                    backgroundColor: colors.black,
-                    borderColor: colors.lightwhite,
-                  }}
-                  schema={{
-                    label: 'value',
-                    value: 'id',
-                  }}
-                  textStyle={{
-                    color: colors.lightwhite,
-                  }}
-                  disabledStyle={{
-                    backgroundColor: colors.black,
-                  }}
-                  open={openGame}
-                  value={valueGame}
-                  items={itemsGame}
-                  setValue={setValueGame}
-                  setItems={setItemsGame}
-                  setOpen={setOpenGame}
-                  onChangeValue={value => {
-                    var keys = Object.keys(data.casino);
-                    var index = keys.indexOf(`${value}`);
-                    var casino = Object.values(data.casino);
-                    if (casino[index]) {
-                      setItemsCasino(casino[index]);
-                    }
-                  }}
-                />
-              </ListItem.Subtitle>
-            </ListItem.Content>
-          </ListItem>
-          <Image
-            source={require('../assets/images/Group.png')}
-            style={styles.logobottom}></Image>
+              </View>
+              <DropDownPicker
+                style={{
+                  height: 40,
+                  width: 140,
+                  marginLeft: 15,
+                  backgroundColor: colors.black,
+                  borderColor: colors.lightwhite,
+                }}
+                schema={{
+                  label: 'value',
+                  value: 'value',
+                }}
+                textStyle={{
+                  color: colors.lightwhite,
+                }}
+                disabledStyle={{
+                  backgroundColor: colors.black,
+                }}
+                open={openGame}
+                value={valueGame}
+                items={itemsGame}
+                setValue={setValueGame}
+                setItems={setItemsGame}
+                setOpen={setOpenGame}
+                onChangeValue={value => {
+                  var keys = Object.keys(data.casino);
+                  var index = keys.indexOf(`${value}`);
+                  var casino = Object.values(data.casino);
+                  if (casino[index]) {
+                    setItemsCasino(casino[index]);
+                  }
+                }}
+              />
+            </View>
+          )}
+          {!openStack && (
+            <Image
+              source={require('../assets/images/Group.png')}
+              style={styles.logobottom}></Image>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
